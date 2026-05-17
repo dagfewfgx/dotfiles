@@ -131,7 +131,7 @@ alias dc='cd'
 ## some alias about git
 alias gi='git init'
 alias gs='git status'
-alias gl='git log --all --graph --decorate'
+alias gl='git log --all --graph --decorate --show-signature'
 alias ga='git add'
 alias gco='git commit'
 alias gb='git branch'
