@@ -1,0 +1,12 @@
+[user]
+	name = mumou
+	email = 21jlzhou@alumni.stu.edu.cn
+	signingkey = 5BE1C89F84281BB690196920F5F65A606014E109
+[core]
+	editor = vim
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
