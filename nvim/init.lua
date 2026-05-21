@@ -37,39 +37,9 @@ vim.opt.rtp:prepend(lazypath)
 -- ============================================================================
 
 require("lazy").setup({
-    -- ALE 插件配置
-    {
-        'dense-analysis/ale',
-        config = function()
-            vim.g.ale_sign_column_always = 1
-            vim.g.ale_linters = {
-                sh = { 'shellcheck' },
-            }
-            vim.g.ale_fixers = {
-                sh = { 'shfmt' },
-            }
-        end,
+    spec = {
+        { import = "plugins" }, -- 导入plugins 目录下的所有配置
     },
-    {
-        'neoclide/coc.nvim',
-        build = 'npm install --frozen-lockfile',  -- 安装依赖
-        config = function()
-            -- coc.nvim 配置
-            vim.g.coc_global_extensions = {
-                'coc-json',
-                'coc-tsserver',
-                'coc-pyright',
-                'coc-sh',           -- Shell 脚本支持
-                'coc-marketplace',
-             }
-            
-            -- 快捷键配置
-            vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {})
-            vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {})
-            vim.keymap.set('n', 'K', '<Plug>(coc-doc)', {})
-        end,
-    },   
-    -- 其他插件...
 })
 
 -- 配置文件
