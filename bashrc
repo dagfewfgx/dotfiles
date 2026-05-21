@@ -124,7 +124,7 @@ export GPG_TTY=$(tty)
 set -o vi
 
 # some alias
-alias v='vim'
+alias v='nvim'
 alias sl='ls'
 alias dc='cd'
 
