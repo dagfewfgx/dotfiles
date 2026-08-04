@@ -95,3 +95,59 @@ venvon() {
     venvon
   fi
 }
+
+# pdf尾页插入工具
+#!/bin/bash
+
+# 用法: pdfappend <原PDF> <要插入的PDF> [输出PDF]
+# 示例: pdfappend hw02.pdf citation.pdf
+#       pdfappend hw02.pdf citation.pdf merged.pdf
+
+pdfappend() {
+  # 检查参数数量
+  if [ $# -lt 2 ]; then
+    echo "用法: pdfappend <原PDF> <要插入的PDF> [输出PDF]"
+    echo "示例: pdfappend hw02.pdf citation.pdf"
+    echo "      pdfappend hw02.pdf citation.pdf merged.pdf"
+    return 1
+  fi
+
+  # 获取参数
+  local base_pdf="$1"
+  local insert_pdf="$2"
+  local output_pdf="${3:-$1}" # 如果第三个参数为空，默认等于第一个参数
+
+  # 检查输入文件是否存在
+  if [ ! -f "$base_pdf" ]; then
+    echo "错误: 文件 '$base_pdf' 不存在"
+    return 1
+  fi
+
+  if [ ! -f "$insert_pdf" ]; then
+    echo "错误: 文件 '$insert_pdf' 不存在"
+    return 1
+  fi
+
+  # 检查 pdftk 是否安装
+  if ! command -v pdftk &>/dev/null; then
+    echo "错误: 未找到 pdftk，请先安装"
+    echo "Ubuntu/Debian: sudo apt install pdftk"
+    echo "macOS: brew install pdftk"
+    return 1
+  fi
+
+  # 执行合并（原PDF + 插入的PDF）
+  local temp_file="/tmp/pdfappend_temp_$$.pdf"
+
+  echo "正在合并: $base_pdf + $insert_pdf -> $output_pdf"
+
+  if pdftk "$base_pdf" "$insert_pdf" cat output "$temp_file"; then
+    mv "$temp_file" "$output_pdf"
+    echo "✓ 完成! 输出文件: $output_pdf"
+    return 0
+  else
+    echo "✗ 合并失败"
+    rm -f "$temp_file"
+    return 1
+  fi
+}
