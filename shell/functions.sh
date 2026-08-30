@@ -2,20 +2,18 @@
 
 # 代理开关函数
 proxyon() {
-  export WIN_IP=$(ip route | grep default | awk '{print $3}')
-  export HTTP_PROXY="http://${WIN_IP}:7899"
-  export HTTPS_PROXY="http://${WIN_IP}:7899"
-  export http_proxy="http://${WIN_IP}:7899"
-  export https_proxy="http://${WIN_IP}:7899"
-  export ALL_PROXY="socks5://${WIN_IP}:7898"
-  export all_proxy="socks5://${WIN_IP}:7898"
-  echo "✅ 代理已开启 (HTTP: ${WIN_IP}:7899, SOCKS: ${WIN_IP}:7898)"
+  export HTTP_PROXY="http://localhost:7899"
+  export HTTPS_PROXY="http://localhost:7899"
+  export http_proxy="http://localhost:7899"
+  export https_proxy="http://localhost:7899"
+  export ALL_PROXY="socks5://localhost:7898"
+  export all_proxy="socks5://localhost:7898"
+  echo "✅ 代理已开启 (HTTP: localhost:7899, SOCKS: localhost:7898)"
 }
 
 proxyoff() {
-  unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
-  unset ALL_PROXY all_proxy
-  echo "❌ 代理已关闭"
+  unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy
+  echo "✅ 代理已关闭"
 }
 
 proxyst() {
@@ -151,3 +149,6 @@ pdfappend() {
     return 1
   fi
 }
+
+# 导出函数供命令行使用
+export -f pdfappend
